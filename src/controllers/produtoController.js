@@ -27,10 +27,13 @@ const produtoController = {
 
         await novoProduto.setCategorias(categoria);
         
-        res.json(novoProduto);
+        res.status(201).json(novoProduto);
     },
 
     async deletarProduto (req, res) {
+    try {
+        
+    
         const {id} = req.params;
 
         await Produtos.destroy({
@@ -39,12 +42,18 @@ const produtoController = {
             },
         });
 
-        res.json("Produto deletado");
-    }, 
+        res.status(204);
+
+    } catch (error) {
+        return res.status(500).json("Ocorreu algum problema");
+    }
+},
 
     async atualizarProduto (req, res) {
         const {id} = req.params;
         const { nome, preco, quantidade } = req.body;
+
+        if (!id) return res.status(400).json("id não enviado")
 
         const produtoAtualizado = await Produtos.update(
             { 
