@@ -1,9 +1,9 @@
-module.export = (req, res, next) => {
-    const { pass } = req.query;
+module.exports = (req, res, next) => {
+    const {pass} = req.query;
 
-    if (!pass || pass !== banana) {
-        return res.status(400).json("errado");
+    if (!pass || pass !== "banana") {
+        return res.status(400).json("Algo deu errado")
     }
 
     next();
-};
+}
